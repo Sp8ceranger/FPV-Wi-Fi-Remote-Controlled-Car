@@ -30,5 +30,4 @@
 
 ---
 Translated with DeepL.com (free version)
-
 https://www.deepl.com/fr/translator
