@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrôle Voiture - ESP32</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Contrôle Voiture + Caméra</h1>
+        <p>Connecté à: <span id="ip"></span></p>
+        
+        <div class="layout">
+            <div class="video-container">
+                <img id="video-stream" src="/stream" alt="Flux vidéo">
+            </div>
+            
+            <div class="controls-container">
+                <div class="joystick-container">
+                    <div id="joystick" class="joystick">
+                        <div id="stick" class="stick"></div>
+                    </div>
+                </div>
+                
+                <div class="slider-container">
+                    <label for="speed">Vitesse: <span id="speed-value">100%</span></label>
+                    <input type="range" id="speed" min="0" max="100" value="100" class="slider">
+                </div>
+                
+                <div class="status">
+                    <p>X: <span id="x-value">0</span> | Y: <span id="y-value">0</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/script.js"></script>
+</body>
+</html>
