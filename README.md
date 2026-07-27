@@ -19,13 +19,13 @@ Translated with DeepL.com (free version)
 ## câblage / wiring
  | Broche TB6612FNG | Broche ESP32 | Description          |
  |------------------|--------------|----------------------|
- | IN1              | GPIO 1       | Contrôle moteur 1    |
- | IN2              | GPIO 2       | Contrôle moteur 1    |
- | IN3              | GPIO 3       | Contrôle moteur 2    |
- | IN4              | GPIO 4       | Contrôle moteur 2    |
- | PWM1             | GPIO 5       | Vitesse moteur 1     |
- | PWM2             | GPIO 6       | Vitesse moteur 2     |
- | STBY             | GPIO 7       | Mode veille          |
- | VM               | 5V           | Alimentation moteurs |
- | VCC              | 3.3V         | Alimentation logique |
- | GND              | GND          | Masse commune        |
+ | IN1              | GPIO 1       | Contrôle moteur 1 / Motor Control 1    |
+ | IN2              | GPIO 2       | Contrôle moteur 1 / Motor Control 1    |
+ | IN3              | GPIO 3       | Contrôle moteur 2 / Motor Control 2    |
+ | IN4              | GPIO 4       | Contrôle moteur 2 / Motor Control 2    |
+ | PWM1             | GPIO 5       | Vitesse moteur 1 / Motor Speed 1     |
+ | PWM2             | GPIO 6       | Vitesse moteur 2 / Motor Speed 2     |
+ | STBY             | GPIO 7       | Mode veille / Standby Mode          |
+ | VM               | 5V           | Alimentation moteurs / Motor Power Supply |
+ | VCC              | 3.3V         | Alimentation logique / Logic Power Supply |
+ | GND              | GND          | Masse commune / Common Ground        |
