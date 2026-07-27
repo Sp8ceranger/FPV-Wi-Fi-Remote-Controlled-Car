@@ -14,8 +14,6 @@
 2. motors x4
 3. TB6612FNG motor driver module x1
 
-Translated with DeepL.com (free version)
-
 ## câblage / wiring
  | TB6612FNG | ESP32 | Description          |
  |------------------|--------------|----------------------|
@@ -29,3 +27,5 @@ Translated with DeepL.com (free version)
  | VM               | 5V           | Alimentation moteurs / Motor Power Supply |
  | VCC              | 3.3V         | Alimentation logique / Logic Power Supply |
  | GND              | GND          | Masse commune / Common Ground        |
+
+Translated with DeepL.com (free version)
