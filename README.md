@@ -16,7 +16,7 @@
 
 Translated with DeepL.com (free version)
 
-## câblage/wiring
+## câblage / wiring
  | Broche TB6612FNG | Broche ESP32 | Description          |
  |------------------|--------------|----------------------|
  | IN1              | GPIO 1       | Contrôle moteur 1    |
