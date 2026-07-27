@@ -28,10 +28,10 @@ WebSocketsServer webSocket = WebSocketsServer(81);
 // Moteur 2 (Droit)
 #define IN3 3
 #define IN4 4
-#define PWM2 10
+#define PWM2 6
 
 // Marche - Arret
-#define STBY 9
+#define STBY 7
 
 // --- Variables globales ---
 int speed = 100;  // Vitesse par défaut (0-100%)
@@ -84,7 +84,7 @@ void sendJPEG(WiFiClient &client, camera_fb_t *fb) {
 }
 
 // ============================================
-// FONCTIONS POUR LES MOTEURS (À PERSONNALISER)
+// FONCTIONS POUR LES MOTEURS
 // ============================================
 
 // Avancer (les 2 moteurs en avant)
