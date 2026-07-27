@@ -3,7 +3,6 @@
 // Matériel : XIAO ESP32 S3 Sense / Adafruit Feather ESP32 2MB PSRAM + TB6612FNG + 4 moteurs DC 5V
 // Auteur : Vibe Code (pour Sp8ceranger)
 // Documentation moteurs : https://passionelectronique.fr/tutoriel-tb6612fng/
-// Code : 
 // ============================================
 
 #include <WiFi.h>
