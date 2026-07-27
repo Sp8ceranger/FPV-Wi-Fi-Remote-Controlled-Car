@@ -87,4 +87,4 @@ Les contributions sont les bienvenues ! Ouvrez une **Issue** ou une **Pull Reque
 ---
 ## 📜 Licence
 [MIT](https://choosealicense.com/licenses/mit/)
-© 2024 Sp8ceranger
+© 2026 Sp8ceranger
