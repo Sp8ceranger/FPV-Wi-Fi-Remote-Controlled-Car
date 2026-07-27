@@ -28,4 +28,5 @@
  | VCC              | 3.3V         | Alimentation logique / Logic Power Supply |
  | GND              | GND          | Masse commune / Common Ground        |
 
+#
 Translated with DeepL.com (free version)
