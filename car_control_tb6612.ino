@@ -39,8 +39,8 @@ int joyY = 0;     // Position Y du joystick (-100 à 100)
 unsigned long lastActivityTime = 0;
 const unsigned long timeout = 5000;  // 5 secondes
 
-// --- Configuration Caméra (Adafruit Feather ESP32 / XIAO ESP32 S3 Sense) ---
-// Broches caméra pour Adafruit Feather ESP32
+// --- Configuration Caméra (XIAO ESP32 S3 Sense) ---
+// Broches caméra pour XIAO_ESP32S3
 #define CAMERA_MODEL_XIAO_ESP32S3
 #define PWDN_GPIO_NUM  -1
 #define RESET_GPIO_NUM -1
