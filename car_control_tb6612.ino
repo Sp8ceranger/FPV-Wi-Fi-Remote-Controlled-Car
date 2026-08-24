@@ -1,8 +1,8 @@
 // ============================================
 // Contrôle de voiture télécommandée via WiFi + Flux Vidéo
-// Matériel : XIAO ESP32 S3 Sense / Adafruit Feather ESP32 2MB PSRAM + TB6612FNG + 4 moteurs DC 5V
+// Matériel : XIAO ESP32 S3 Sense + TB6612FNG + 4 moteurs DC 5V
 // Auteur : Vibe Code (pour Sp8ceranger)
-// Documentation moteurs : https://passionelectronique.fr/tutoriel-tb6612fng/
+// Documentation TB6612FNG : https://passionelectronique.fr/tutoriel-tb6612fng/
 // ============================================
 
 #include <WiFi.h>
@@ -18,7 +18,7 @@ const char* password = "12345678";  // Min. 8 caractères
 WebServer server(80);
 WebSocketsServer webSocket = WebSocketsServer(81);
 
-// --- Broches TB6612FNG (à adapter selon ton câblage) ---
+// --- Broches TB6612FNG (à adapter selon votre câblage) ---
 // Moteur 1 (Gauche)
 #define IN1 1
 #define IN2 2
@@ -84,7 +84,7 @@ void sendJPEG(WiFiClient &client, camera_fb_t *fb) {
 }
 
 // ============================================
-// FONCTIONS POUR LES MOTEURS (À PERSONNALISER)
+// FONCTIONS POUR LES MOTEURS
 // ============================================
 
 // Avancer (les 2 moteurs en avant)
@@ -109,7 +109,7 @@ void backward(int speedPercent) {
 
 // Tourner à gauche (moteur gauche en arrière, moteur droit en avant)
 void left(int speedPercent) {
-  digitalWrite(IN1, HIGH);
+  digitalWrite(IN1, LOW);
   digitalWrite(IN2, HIGN);
   digitalWrite(IN3, HIGH);
   digitalWrite(IN4, HIGH);
