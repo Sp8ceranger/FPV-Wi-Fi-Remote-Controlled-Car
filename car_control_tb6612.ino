@@ -1,4 +1,4 @@
- // ============================================
+// ============================================
 // Contrôle de voiture télécommandée via WiFi + Flux Vidéo
 // Matériel : XIAO ESP32 S3 Sense + TB6612FNG + 2 moteurs DC 5V
 // Auteur : Vibe Code (pour Sp8ceranger) et Sp8ceranger
