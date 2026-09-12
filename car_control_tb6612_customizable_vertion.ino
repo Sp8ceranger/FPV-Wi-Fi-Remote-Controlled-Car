@@ -1,7 +1,7 @@
 // ============================================
 // Contrôle de voiture télécommandée via WiFi + Flux Vidéo
-// Matériel : XIAO ESP32 S3 Sense / Adafruit Feather ESP32 2MB PSRAM + TB6612FNG + 4 moteurs DC 5V
-// Auteur : Vibe Code (pour Sp8ceranger)
+// Matériel : XIAO ESP32 S3 Sense + TB6612FNG + 2 moteurs DC 5V
+// Auteur : Vibe Code (pour Sp8ceranger) et Sp8ceranger
 // Documentation moteurs : https://passionelectronique.fr/tutoriel-tb6612fng/
 // ============================================
 
@@ -11,8 +11,8 @@
 #include "esp_camera.h"
 
 // --- Configuration WiFi ---
-const char* ssid = "ESP32_Car";
-const char* password = "12345678";  // Min. 8 caractères
+const char* ssid = "ssid_car";
+const char* password = "pwd_car_";  // Min. 8 caractères
 
 // --- Configuration WebSocket ---
 WebServer server(80);
@@ -39,25 +39,24 @@ int joyY = 0;     // Position Y du joystick (-100 à 100)
 unsigned long lastActivityTime = 0;
 const unsigned long timeout = 5000;  // 5 secondes
 
-// --- Configuration Caméra (Adafruit Feather ESP32 / XIAO ESP32 S3 Sense) ---
-// Broches caméra pour Adafruit Feather ESP32
-#define CAMERA_MODEL_AI_THINKER
-#define PWDN_GPIO_NUM 32
+// --- XIAO ESP32 S3 Sense ---
+#define PWDN_GPIO_NUM  -1
 #define RESET_GPIO_NUM -1
-#define XCLK_GPIO_NUM 0
-#define SIOD_GPIO_NUM 26
-#define SIOC_GPIO_NUM 27
-#define Y9_GPIO_NUM 35
-#define Y8_GPIO_NUM 34
-#define Y7_GPIO_NUM 39
-#define Y6_GPIO_NUM 36
-#define Y5_GPIO_NUM 21
-#define Y4_GPIO_NUM 19
-#define Y3_GPIO_NUM 18
-#define Y2_GPIO_NUM 5
-#define VSYNC_GPIO_NUM 25
-#define HREF_GPIO_NUM 23
-#define PCLK_GPIO_NUM 22
+#define XCLK_GPIO_NUM  10
+#define SIOD_GPIO_NUM  40
+#define SIOC_GPIO_NUM  39
+
+#define Y9_GPIO_NUM    48
+#define Y8_GPIO_NUM    11
+#define Y7_GPIO_NUM    12
+#define Y6_GPIO_NUM    14
+#define Y5_GPIO_NUM    16
+#define Y4_GPIO_NUM    18
+#define Y3_GPIO_NUM    17
+#define Y2_GPIO_NUM    15
+#define VSYNC_GPIO_NUM 38
+#define HREF_GPIO_NUM  47
+#define PCLK_GPIO_NUM  13
 
 // Variable globale pour la config caméra
 camera_config_t camera_config;
@@ -145,7 +144,7 @@ void setup() {
   camera_config.pixel_format = PIXFORMAT_JPEG;
   camera_config.frame_size = FRAMESIZE_QVGA;  // 320x240
   camera_config.jpeg_quality = 10;  // Qualité JPEG (0-63)
-  camera_config.fb_count = 2;  // 2 framebuffers pour éviter les blocages
+  camera_config.fb_count = 1;  // 2 framebuffers pour éviter les blocages
   camera_config.grab_mode = CAMERA_GRAB_LATEST;
 
   // Initialisation de la caméra
