@@ -1,8 +1,8 @@
-// ============================================
+ // ============================================
 // Contrôle de voiture télécommandée via WiFi + Flux Vidéo
-// Matériel : XIAO ESP32 S3 Sense + TB6612FNG + 4 moteurs DC 5V
-// Auteur : Vibe Code (pour Sp8ceranger)
-// Documentation TB6612FNG : https://passionelectronique.fr/tutoriel-tb6612fng/
+// Matériel : XIAO ESP32 S3 Sense + TB6612FNG + 2 moteurs DC 5V
+// Auteur : Vibe Code (pour Sp8ceranger) et Sp8ceranger
+// Documentation moteurs : https://passionelectronique.fr/tutoriel-tb6612fng/
 // ============================================
 
 #include <WiFi.h>
@@ -18,7 +18,7 @@ const char* password = "12345678";  // Min. 8 caractères
 WebServer server(80);
 WebSocketsServer webSocket = WebSocketsServer(81);
 
-// --- Broches TB6612FNG (à adapter selon votre câblage) ---
+// --- Broches TB6612FNG (à adapter selon ton câblage) ---
 // Moteur 1 (Gauche)
 #define IN1 1
 #define IN2 2
@@ -39,9 +39,7 @@ int joyY = 0;     // Position Y du joystick (-100 à 100)
 unsigned long lastActivityTime = 0;
 const unsigned long timeout = 5000;  // 5 secondes
 
-// --- Configuration Caméra (XIAO ESP32 S3 Sense) ---
-// Broches caméra pour XIAO_ESP32S3
-#define CAMERA_MODEL_XIAO_ESP32S3
+// --- XIAO ESP32 S3 Sense ---
 #define PWDN_GPIO_NUM  -1
 #define RESET_GPIO_NUM -1
 #define XCLK_GPIO_NUM  10
@@ -84,15 +82,15 @@ void sendJPEG(WiFiClient &client, camera_fb_t *fb) {
 }
 
 // ============================================
-// FONCTIONS POUR LES MOTEURS
+// FONCTIONS POUR LES MOTEURS (À PERSONNALISER)
 // ============================================
 
 // Avancer (les 2 moteurs en avant)
 void forward(int speedPercent) {
   digitalWrite(IN1, HIGH);
-  digitalWrite(IN2, HIGN);
+  digitalWrite(IN2, LOW);
   digitalWrite(IN3, HIGH);
-  digitalWrite(IN4, HIGH);
+  digitalWrite(IN4, LOW);
   analogWrite(PWM1, map(speedPercent, 0, 100, 0, 255));
   analogWrite(PWM2, map(speedPercent, 0, 100, 0, 255));
 }
@@ -100,7 +98,7 @@ void forward(int speedPercent) {
 // Reculer (les 2 moteurs en arrière)
 void backward(int speedPercent) {
   digitalWrite(IN1, LOW);
-  digitalWrite(IN2, HIGN);
+  digitalWrite(IN2, HIGH);
   digitalWrite(IN3, LOW);
   digitalWrite(IN4, HIGH);
   analogWrite(PWM1, map(speedPercent, 0, 100, 0, 255));
@@ -110,9 +108,9 @@ void backward(int speedPercent) {
 // Tourner à gauche (moteur gauche en arrière, moteur droit en avant)
 void left(int speedPercent) {
   digitalWrite(IN1, LOW);
-  digitalWrite(IN2, HIGN);
+  digitalWrite(IN2, HIGH);
   digitalWrite(IN3, HIGH);
-  digitalWrite(IN4, HIGH);
+  digitalWrite(IN4, LOW);
   analogWrite(PWM1, map(speedPercent, 0, 100, 0, 255));
   analogWrite(PWM2, map(speedPercent, 0, 100, 0, 255));
 }
@@ -120,7 +118,7 @@ void left(int speedPercent) {
 // Tourner à droite (moteur gauche en avant, moteur droit en arrière)
 void right(int speedPercent) {
   digitalWrite(IN1, HIGH);
-  digitalWrite(IN2, HIGN);
+  digitalWrite(IN2, LOW);
   digitalWrite(IN3, LOW);
   digitalWrite(IN4, HIGH);
   analogWrite(PWM1, map(speedPercent, 0, 100, 0, 255));
@@ -154,33 +152,31 @@ void setup() {
   digitalWrite(STBY, LOW);  // Désactive les moteurs au démarrage
   
   // Initialisation de la caméra
-  config.ledc_channel = LEDC_CHANNEL_0;
-  config.ledc_timer = LEDC_TIMER_0;
-  config.pin_d0 = Y2_GPIO_NUM;
-  config.pin_d1 = Y3_GPIO_NUM;
-  config.pin_d2 = Y4_GPIO_NUM;
-  config.pin_d3 = Y5_GPIO_NUM;
-  config.pin_d4 = Y6_GPIO_NUM;
-  config.pin_d5 = Y7_GPIO_NUM;
-  config.pin_d6 = Y8_GPIO_NUM;
-  config.pin_d7 = Y9_GPIO_NUM;
-  config.pin_xclk = XCLK_GPIO_NUM;
-  config.pin_pclk = PCLK_GPIO_NUM;
-  config.pin_vsync = VSYNC_GPIO_NUM;
-  config.pin_href = HREF_GPIO_NUM;
-  config.pin_sccb_sda = SIOD_GPIO_NUM;
-  config.pin_sccb_scl = SIOC_GPIO_NUM;
-  config.pin_pwdn = PWDN_GPIO_NUM;
-  config.pin_reset = RESET_GPIO_NUM;
-  config.xclk_freq_hz = 20000000;
-  config.frame_size = FRAMESIZE_QVGA;  // 320x240
-  config.pixel_format = PIXFORMAT_JPEG;  // for streaming
-  //config.pixel_format = PIXFORMAT_RGB565; // for face detection/recognition
-  config.grab_mode = CAMERA_GRAB_LATEST;
-  config.fb_location = CAMERA_FB_IN_PSRAM;
-  config.jpeg_quality = 10;  // Qualité JPEG (0-63)
-  config.fb_count = 2;  // 2 framebuffers pour éviter les blocages
-  
+  camera_config.ledc_channel = LEDC_CHANNEL_0;
+  camera_config.ledc_timer = LEDC_TIMER_0;
+  camera_config.pin_d0 = Y2_GPIO_NUM;
+  camera_config.pin_d1 = Y3_GPIO_NUM;
+  camera_config.pin_d2 = Y4_GPIO_NUM;
+  camera_config.pin_d3 = Y5_GPIO_NUM;
+  camera_config.pin_d4 = Y6_GPIO_NUM;
+  camera_config.pin_d5 = Y7_GPIO_NUM;
+  camera_config.pin_d6 = Y8_GPIO_NUM;
+  camera_config.pin_d7 = Y9_GPIO_NUM;
+  camera_config.pin_xclk = XCLK_GPIO_NUM;
+  camera_config.pin_pclk = PCLK_GPIO_NUM;
+  camera_config.pin_vsync = VSYNC_GPIO_NUM;
+  camera_config.pin_href = HREF_GPIO_NUM;
+  camera_config.pin_sscb_sda = SIOD_GPIO_NUM;
+  camera_config.pin_sscb_scl = SIOC_GPIO_NUM;
+  camera_config.pin_pwdn = PWDN_GPIO_NUM;
+  camera_config.pin_reset = RESET_GPIO_NUM;
+  camera_config.xclk_freq_hz = 20000000;
+  camera_config.pixel_format = PIXFORMAT_JPEG;
+  camera_config.frame_size = FRAMESIZE_QVGA;  // 320x240
+  camera_config.jpeg_quality = 10;  // Qualité JPEG (0-63)
+  camera_config.fb_count = 1;  // 2 framebuffers pour éviter les blocages
+  camera_config.grab_mode = CAMERA_GRAB_LATEST;
+
   // Initialisation de la caméra
   esp_err_t err = esp_camera_init(&camera_config);
   if (err != ESP_OK) {
